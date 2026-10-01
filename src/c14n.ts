@@ -20,14 +20,14 @@ export interface CanonicalizeOptions{
   withComments?:boolean;
 }
 
-interface SelectorStep{uri:string|null;local:string|null}
+export interface SelectorStep{uri:string|null;local:string|null}
 interface Frame{name:string;qname:QName;emitting:boolean;continuations:number[]}
 
-const escapeText=(s:string):string=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\r/g,'&#xD;');
-const escapeAttribute=(s:string):string=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/\t/g,'&#x9;').replace(/\n/g,'&#xA;').replace(/\r/g,'&#xD;');
+export const escapeText=(s:string):string=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\r/g,'&#xD;');
+export const escapeAttribute=(s:string):string=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;').replace(/\t/g,'&#x9;').replace(/\n/g,'&#xA;').replace(/\r/g,'&#xD;');
 const byCodePoint=(a:string,b:string):number=>a<b?-1:a>b?1:0;
 
-const compileSelector=(select:string,namespaces:Record<string,string>):{steps:SelectorStep[];descendant:boolean}=>{
+export const compileSelector=(select:string,namespaces:Record<string,string>):{steps:SelectorStep[];descendant:boolean}=>{
   const s=select.trim();
   const descendant=s.startsWith('//');
   if(!descendant&&!s.startsWith('/'))throw new Error(`selector must start with "/" or "//": ${select}`);
